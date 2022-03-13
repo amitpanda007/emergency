@@ -1,1 +1,17 @@
-<mat-card>Contact One</mat-card>
+<mat-card class="card" *ngIf="contact">
+  <mat-card-content class="content">
+    <div>
+      <h2 [innerHtml]="contactNameWithNumber"></h2>
+      <p [innerHtml]="contact.description"></p>
+    </div>
+    <div>
+      <button mat-icon-button (click)="call()">
+        <!-- <a href="tel:{{ contact.number }}"><mat-icon>call</mat-icon></a> -->
+        <mat-icon>call</mat-icon>
+      </button>
+      <button mat-icon-button (click)="report()">
+        <mat-icon>report</mat-icon>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>
