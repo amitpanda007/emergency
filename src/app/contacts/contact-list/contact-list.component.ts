@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Contact } from 'src/app/models/contact';
+import { PlaceLocation } from 'src/app/models/placelocation';
+import { GeolocationService } from 'src/app/services/geolocation.service';
 
 @Component({
   selector: 'contact-list',
@@ -75,5 +77,17 @@ export class ContactListComponent implements OnInit {
       number: '181',
     },
   ];
-  ngOnInit(): void {}
+
+  constructor(private geolocation: GeolocationService) {}
+
+  ngOnInit(): void {
+    // this.geolocation.requestLocation((location: PlaceLocation) => {
+    //   if (location) {
+    //     console.log(location.latitude);
+    //     console.log(location.longitude);
+    //     const url = this.geolocation.getMapLink(location);
+    //     console.log(url);
+    //   }
+    // });
+  }
 }

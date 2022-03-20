@@ -6,19 +6,18 @@ import { AppComponent } from './app.component';
 import { ContactsModule } from './contacts/contacts.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
+import { GeolocationService } from './services/geolocation.service';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     SharedModule,
     ContactsModule,
-    BrowserAnimationsModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [GeolocationService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
