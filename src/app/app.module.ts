@@ -7,6 +7,8 @@ import { ContactsModule } from './contacts/contacts.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { GeolocationService } from './services/geolocation.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +18,12 @@ import { GeolocationService } from './services/geolocation.service';
     AppRoutingModule,
     SharedModule,
     ContactsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [GeolocationService],
   bootstrap: [AppComponent],
