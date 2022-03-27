@@ -9,6 +9,16 @@ import { SharedModule } from './shared/shared.module';
 import { GeolocationService } from './services/geolocation.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+import {
+  getAnalytics,
+  provideAnalytics,
+  ScreenTrackingService,
+  UserTrackingService,
+} from '@angular/fire/analytics';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,10 +32,14 @@ import { environment } from '../environments/environment';
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
+    provideStorage(() => getStorage()),
   ],
-  providers: [GeolocationService],
+  providers: [GeolocationService, ScreenTrackingService, UserTrackingService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,7 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  collection,
+  collectionData,
+  CollectionReference,
+  Firestore,
+  getDocs,
+  query,
+} from '@angular/fire/firestore';
 import { Contact } from 'src/app/models/contact';
 import { PlaceLocation } from 'src/app/models/placelocation';
 import { GeolocationService } from 'src/app/services/geolocation.service';
+import { getDatabase, ref, onValue, get, child } from 'firebase/database';
+import { getFirestore } from '@firebase/firestore';
 
 @Component({
   selector: 'contact-list',
@@ -78,9 +88,12 @@ export class ContactListComponent implements OnInit {
     },
   ];
 
-  constructor(private geolocation: GeolocationService) {}
+  constructor(
+    private geolocation: GeolocationService,
+    private afs: Firestore
+  ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     // this.geolocation.requestLocation((location: PlaceLocation) => {
     //   if (location) {
     //     console.log(location.latitude);
@@ -89,5 +102,18 @@ export class ContactListComponent implements OnInit {
     //     console.log(url);
     //   }
     // });
+
+    // collectionData(
+    //   query(collection(this.afs, 'posts') as CollectionReference),
+    //   { idField: 'id' }
+    // ).subscribe((data) => {
+    //   console.log(data);
+    // });
+
+    const db = getFirestore();
+    const postRef = collection(db, 'posts');
+    getDocs(postRef).then((data) => {
+      console.log(data);
+    });
   }
 }

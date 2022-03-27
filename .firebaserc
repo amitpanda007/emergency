@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "emrznc": {
+      "hosting": {
+        "emergency": [
+          "emrznc"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "emrznc"
+  }
+}
