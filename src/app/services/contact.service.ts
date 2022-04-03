@@ -1,20 +1,35 @@
 import { Injectable } from '@angular/core';
-import { Firestore, doc, collection, onSnapshot, DocumentReference, docSnapshots, CollectionReference, collectionSnapshots } from '@angular/fire/firestore';
+import {
+  Firestore,
+  doc,
+  collection,
+  onSnapshot,
+  DocumentReference,
+  docSnapshots,
+  CollectionReference,
+  collectionSnapshots,
+} from '@angular/fire/firestore';
+import { Subject } from 'rxjs';
+import { Contact } from '../models/contact';
 
 @Injectable()
 export class ContactService {
-    postCol!: CollectionReference;
+  private allContacts!: Contact[];
 
-    constructor(private firestore: Firestore) {}
+  private contactCol!: CollectionReference;
 
-    getPostCollection() {
-        this.postCol = collection(this.firestore, 'posts');
-        
-        collectionSnapshots(this.postCol).subscribe(data => {
-            data.forEach(colData => {
-                console.log(colData.data());
-            })
-        });
-    }
+  public contactsChanged = new Subject<Contact[]>();
 
+  constructor(private firestore: Firestore) {}
+
+  getContactCollection() {
+    this.contactCol = collection(this.firestore, 'contacts');
+
+    collectionSnapshots(this.contactCol).subscribe((data) => {
+      data.forEach((colData) => {
+        this.allContacts = colData.data() as Contact[];
+        this.contactsChanged.next([...this.allContacts]);
+      });
+    });
+  }
 }
