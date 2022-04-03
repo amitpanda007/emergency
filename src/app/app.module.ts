@@ -19,6 +19,7 @@ import {
   ScreenTrackingService,
   UserTrackingService,
 } from '@angular/fire/analytics';
+import { ContactService } from './services/contact.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,7 +40,7 @@ import {
     provideAuth(() => getAuth()),
     provideStorage(() => getStorage()),
   ],
-  providers: [GeolocationService, ScreenTrackingService, UserTrackingService],
+  providers: [GeolocationService, ScreenTrackingService, UserTrackingService, ContactService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
