@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Location } from './models/location';
+import { LocationService } from './services/location.service';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +9,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'emergency';
+  title: string = 'emergency';
+  public isSearching: boolean = false;
+  public citySearch!: string;
+  public locationList: Location[] = [];
 
-  constructor(private _snackBar: MatSnackBar) {}
+  constructor(
+    private _snackBar: MatSnackBar,
+    private locationService: LocationService
+  ) {}
 
   ngOnInit() {
     if ((navigator as any).standalone == false) {
@@ -43,6 +51,25 @@ export class AppComponent {
           return false;
         });
       }
+    }
+
+    this.locationService.locationChanged.subscribe((locations: any) => {
+      console.log(locations);
+      this.locationList = locations;
+    });
+  }
+
+  chnageLocation() {
+    console.log('Set Location');
+    this.isSearching = !this.isSearching;
+  }
+
+  cityInputChanged() {
+    // console.log(this.citySearch);
+    const term = this.citySearch.trim();
+    if (term.length > 2) {
+      console.log('Start Searching Firebase');
+      this.locationService.getContactCollection(term);
     }
   }
 }

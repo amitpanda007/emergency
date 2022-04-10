@@ -14,7 +14,7 @@ import { Contact } from '../models/contact';
 
 @Injectable()
 export class ContactService {
-  private allContacts!: Contact[];
+  private allContacts: Contact[] = [];
 
   private contactCol!: CollectionReference;
 
@@ -27,9 +27,10 @@ export class ContactService {
 
     collectionSnapshots(this.contactCol).subscribe((data) => {
       data.forEach((colData) => {
-        this.allContacts = colData.data() as Contact[];
-        this.contactsChanged.next([...this.allContacts]);
+        console.log(colData.data());
+        this.allContacts.push(colData.data() as Contact);
       });
+      this.contactsChanged.next([...this.allContacts]);
     });
   }
 }
