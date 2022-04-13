@@ -1,7 +1,17 @@
-<div mat-dialog-content>
-  <p [innerHTML]="data.message"></p>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="confirm()" cdkFocusInitial>OK</button>
-  <button mat-button (click)="cancel()">Cancel</button>
+<div>
+  <p class="sub-header">Search & Set your location</p>
+  <input
+    cdkFocusInitial
+    class="search-input"
+    name="citySearch"
+    type="email"
+    placeholder="City name"
+    [(ngModel)]="citySearch"
+    autocomplete="off"
+    (ngModelChange)="cityInputChanged()"  
+  />
+
+  <div>
+    <p class="select" *ngFor="let location of locationList" [innerHTML]="location?.name" (click)="selectLocation(location.name)"></p>
+  </div>
 </div>

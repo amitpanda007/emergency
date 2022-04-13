@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from './models/location';
 import { LocationService } from './services/location.service';
+import {MatDialog} from '@angular/material/dialog';
+import { LocationSearchDialogComponent } from './contacts/location-search/location-search-dialog.component';
+import { BehaviorSubject } from 'rxjs';
+
 
 @Component({
   selector: 'app-root',
@@ -10,12 +14,14 @@ import { LocationService } from './services/location.service';
 })
 export class AppComponent {
   title: string = 'emergency';
+  public locationChanged = new BehaviorSubject("");
   public isSearching: boolean = false;
-  public citySearch!: string;
   public locationList: Location[] = [];
+  public currentLocation!: string;
 
   constructor(
     private _snackBar: MatSnackBar,
+    private dialog: MatDialog,
     private locationService: LocationService
   ) {}
 
@@ -53,23 +59,40 @@ export class AppComponent {
       }
     }
 
-    this.locationService.locationChanged.subscribe((locations: any) => {
-      console.log(locations);
-      this.locationList = locations;
+    const city = window.localStorage.getItem('city');
+    this.currentLocation = city ? city : "Set Location";
+    this.locationChanged.subscribe(cityChanged => {
+      if(cityChanged != "") {
+        this.currentLocation = cityChanged;
+      }else {
+        this.currentLocation = "Set Location";
+      }
     });
+  }
+
+  ngOnDestroy() {
+    this.locationChanged.unsubscribe();
   }
 
   chnageLocation() {
     console.log('Set Location');
     this.isSearching = !this.isSearching;
+    const dialogRef = this.dialog.open(LocationSearchDialogComponent, {
+      width: '450px',
+      data: {},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if(result.selectedCity) {
+        this.locationChanged.next(result.selectedCity);
+        window.localStorage.setItem('city', result.selectedCity);
+      }
+    });
   }
 
-  cityInputChanged() {
-    // console.log(this.citySearch);
-    const term = this.citySearch.trim();
-    if (term.length > 2) {
-      console.log('Start Searching Firebase');
-      this.locationService.getContactCollection(term);
-    }
+  removeLocation() {
+    this.locationChanged.next("");
+    window.localStorage.removeItem('city');
   }
 }

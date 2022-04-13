@@ -107,30 +107,13 @@
   <div class="spacer"></div>
 
   <mat-chip-list aria-label="Location Selection">
-    <mat-chip color="accent" selected (click)="chnageLocation()"
-      >Bhubaneswar</mat-chip
-    >
+    <mat-chip color="accent" selected (click)="chnageLocation()" (removed)="removeLocation()"
+      >{{ currentLocation }}
+      <button matChipRemove *ngIf="currentLocation != 'Set Location'">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip>
   </mat-chip-list>
-
-  <div>
-    <input
-      *ngIf="isSearching"
-      cdkFocusInitial
-      class="search-input"
-      name="citySearch"
-      type="email"
-      placeholder="City name"
-      [(ngModel)]="citySearch"
-      autocomplete="off"
-      (ngModelChange)="cityInputChanged()"
-    />
-
-    <p *ngFor="let location of locationList" [innerHTML]="location?.name"></p>
-  </div>
-
-  <div>
-    <span *ngFor=""></span>
-  </div>
 </div>
 
 <router-outlet></router-outlet>

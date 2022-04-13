@@ -11,6 +11,7 @@ import {
   where,
   query,
   getDocs,
+  startAt,
 } from '@angular/fire/firestore';
 import { Subject } from 'rxjs';
 import { Contact } from '../models/contact';
@@ -28,7 +29,8 @@ export class LocationService {
   async getContactCollection(partialCity: string) {
     this.locationCol = collection(this.firestore, 'locations');
 
-    const q = query(this.locationCol, where('name', '>=', partialCity));
+    const searchTerm = this.capitalizeFirstLetter(partialCity);
+    const q = query(this.locationCol, where("name", ">", searchTerm));
 
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((locData) => {
@@ -36,5 +38,9 @@ export class LocationService {
       this.filterLocation.push(locData.data() as Location);
     });
     this.locationChanged.next([...this.filterLocation]);
+  }
+
+  capitalizeFirstLetter(str: string): string {
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 }

@@ -21,6 +21,7 @@ import {
 } from '@angular/fire/analytics';
 import { ContactService } from './services/contact.service';
 import { LocationService } from './services/location.service';
+import { LocationSearchDialogComponent } from './contacts/location-search/location-search-dialog.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -49,5 +50,6 @@ import { LocationService } from './services/location.service';
     LocationService,
   ],
   bootstrap: [AppComponent],
+  entryComponents: [LocationSearchDialogComponent]
 })
 export class AppModule {}
