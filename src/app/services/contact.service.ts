@@ -26,6 +26,7 @@ export class ContactService {
     this.contactCol = collection(this.firestore, 'contacts');
 
     collectionSnapshots(this.contactCol).subscribe((data) => {
+      this.allContacts = [];
       data.forEach((colData) => {
         console.log(colData.data());
         this.allContacts.push(colData.data() as Contact);
