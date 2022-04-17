@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Contact } from 'src/app/models/contact';
+import { Contact, ContactInfo } from 'src/app/models/contact';
 
 @Component({
   selector: 'contact-card',
@@ -7,20 +7,20 @@ import { Contact } from 'src/app/models/contact';
   styleUrls: ['contact-card.component.scss'],
 })
 export class ContactCardComponent implements OnInit {
-  @Input() contact: Contact | null = null;
+  @Input() contact: ContactInfo | null = null;
   public contactNameWithNumber: string = '';
   ngOnInit(): void {
     this.contactNameWithNumber =
-      this.contact?.name + ' ( ' + this.contact?.number + ' ) ';
+      this.contact?.name + ' ( ' + this.contact?.telephone + ' ) ';
   }
 
-  call() {
+  call(contactInfo: ContactInfo) {
     const callLink = document.createElement('a');
-    callLink.href = `tel:${this.contact?.number}`;
+    callLink.href = `tel:${contactInfo?.telephone}`;
     callLink.click();
   }
 
-  report() {
+  report(contactInfo: ContactInfo) {
     console.log('Reporting current contact');
   }
 }

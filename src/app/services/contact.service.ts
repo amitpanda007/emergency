@@ -8,30 +8,33 @@ import {
   docSnapshots,
   CollectionReference,
   collectionSnapshots,
+  getDocs,
+  query,
 } from '@angular/fire/firestore';
+import { where } from '@firebase/firestore';
 import { Subject } from 'rxjs';
 import { Contact } from '../models/contact';
 
 @Injectable()
 export class ContactService {
-  private allContacts: Contact[] = [];
+  private allContacts!: Contact;
 
-  private contactCol!: CollectionReference;
+  private contactColRef!: CollectionReference;
 
-  public contactsChanged = new Subject<Contact[]>();
+  public contactsChanged = new Subject<Contact>();
 
   constructor(private firestore: Firestore) {}
 
-  getContactCollection() {
-    this.contactCol = collection(this.firestore, 'contacts');
+  async getContactCollection(location: string) {
+    const contactColRef = collection(this.firestore, 'contacts');
+    const q = query(contactColRef, where('location', '==', location));
 
-    collectionSnapshots(this.contactCol).subscribe((data) => {
-      this.allContacts = [];
-      data.forEach((colData) => {
-        console.log(colData.data());
-        this.allContacts.push(colData.data() as Contact);
-      });
-      this.contactsChanged.next([...this.allContacts]);
-    });
+    const querySnapshot = await getDocs(q);
+    const firstDocument = querySnapshot.docs[0];
+
+    if (firstDocument) {
+      this.allContacts = firstDocument.data() as Contact;
+      this.contactsChanged.next(this.allContacts);
+    }
   }
 }

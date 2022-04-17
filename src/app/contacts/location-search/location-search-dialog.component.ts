@@ -21,10 +21,11 @@ export class LocationSearchDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.locationSearchSubscription = this.locationService.locationChanged.subscribe((locations: any) => {
-      console.log(locations);
-      this.locationList = locations;
-    });
+    this.locationSearchSubscription =
+      this.locationService.locationDataChanged.subscribe((locations: any) => {
+        console.log(locations);
+        this.locationList = locations;
+      });
   }
 
   ngOnDestroy(): void {
@@ -46,7 +47,7 @@ export class LocationSearchDialogComponent implements OnInit {
 
   selectLocation(cityName: string): void {
     console.log(cityName);
-    this.dialogRef.close({selectedCity: cityName});
+    this.dialogRef.close({ selectedCity: cityName });
   }
 }
 

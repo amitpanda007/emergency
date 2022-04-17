@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from './models/location';
 import { LocationService } from './services/location.service';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { LocationSearchDialogComponent } from './contacts/location-search/location-search-dialog.component';
 import { BehaviorSubject } from 'rxjs';
-
 
 @Component({
   selector: 'app-root',
@@ -14,7 +13,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AppComponent {
   title: string = 'emergency';
-  public locationChanged = new BehaviorSubject("");
+
   public isSearching: boolean = false;
   public locationList: Location[] = [];
   public currentLocation!: string;
@@ -60,18 +59,18 @@ export class AppComponent {
     }
 
     const city = window.localStorage.getItem('city');
-    this.currentLocation = city ? city : "Set Location";
-    this.locationChanged.subscribe(cityChanged => {
-      if(cityChanged != "") {
+    this.currentLocation = city ? city : 'Set Location';
+    this.locationService.locationChanged.subscribe((cityChanged) => {
+      if (cityChanged != '') {
         this.currentLocation = cityChanged;
-      }else {
-        this.currentLocation = "Set Location";
+      } else {
+        this.currentLocation = 'Set Location';
       }
     });
   }
 
   ngOnDestroy() {
-    this.locationChanged.unsubscribe();
+    this.locationService.locationChanged.unsubscribe();
   }
 
   chnageLocation() {
@@ -82,17 +81,20 @@ export class AppComponent {
       data: {},
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
-      if(result.selectedCity) {
-        this.locationChanged.next(result.selectedCity);
+      if (result == undefined) {
+        return;
+      }
+      if (result.selectedCity) {
+        this.locationService.locationChanged.next(result.selectedCity);
         window.localStorage.setItem('city', result.selectedCity);
       }
     });
   }
 
   removeLocation() {
-    this.locationChanged.next("");
+    this.locationService.locationChanged.next('');
     window.localStorage.removeItem('city');
   }
 }

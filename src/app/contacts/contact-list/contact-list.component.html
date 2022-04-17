@@ -1,6 +1,15 @@
 <div class="section">
-  <contact-card
-    *ngFor="let contact of contactList"
-    [contact]="contact"
-  ></contact-card>
+  <div *ngIf="contactList?.contactInfos">
+    <contact-card
+      *ngFor="let contact of contactList?.contactInfos"
+      [contact]="contact"
+    ></contact-card>
+  </div>
+  <div *ngIf="!contactList?.contactInfos">
+    <p>
+      We don't have data for your city at this moment. Register a request for us
+      to add your city.
+    </p>
+    <button mat-flat-button color="primary">City Request</button>
+  </div>
 </div>

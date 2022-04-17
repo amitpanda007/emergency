@@ -3,6 +3,7 @@ import { Contact } from 'src/app/models/contact';
 import { PlaceLocation } from 'src/app/models/placelocation';
 import { ContactService } from 'src/app/services/contact.service';
 import { GeolocationService } from 'src/app/services/geolocation.service';
+import { LocationService } from 'src/app/services/location.service';
 
 @Component({
   selector: 'contact-list',
@@ -79,11 +80,12 @@ export class ContactListComponent implements OnInit {
   //   },
   // ];
 
-  public contactList!: Contact[];
+  public contactList!: Contact;
 
   constructor(
     private geolocation: GeolocationService,
-    private contactService: ContactService
+    private contactService: ContactService,
+    private locationService: LocationService
   ) {}
 
   async ngOnInit() {
@@ -96,8 +98,13 @@ export class ContactListComponent implements OnInit {
     //   }
     // });
 
-    this.contactService.getContactCollection();
-    this.contactService.contactsChanged.subscribe(contacts => {
+    const currentCity: string = window.localStorage.getItem('city') as string;
+    this.locationService.locationChanged.subscribe((location) => {
+      this.contactService.getContactCollection(location);
+    });
+
+    this.contactService.getContactCollection(currentCity);
+    this.contactService.contactsChanged.subscribe((contacts) => {
       console.log(contacts);
       this.contactList = contacts;
     });
