@@ -3,18 +3,15 @@ import {
   Firestore,
   doc,
   collection,
-  onSnapshot,
-  DocumentReference,
-  docSnapshots,
   CollectionReference,
-  collectionSnapshots,
   where,
   query,
   getDocs,
-  startAt,
+  addDoc,
 } from '@angular/fire/firestore';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Contact } from '../models/contact';
+import { NewLocation } from '../models/new-location';
 
 @Injectable()
 export class LocationService {
@@ -45,5 +42,13 @@ export class LocationService {
 
   capitalizeFirstLetter(str: string): string {
     return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  async requestToAddNewLocation(location: NewLocation) {
+    await addDoc(collection(this.firestore, "requests"), {
+      cityName: location.cityName,
+      stateName: location.stateName,
+      pin: location.pin
+    });
   }
 }

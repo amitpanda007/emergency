@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { ContactCardComponent } from "./contact-card/contact-card.component";
 import { ContactListComponent } from "./contact-list/contact-list.component";
+import { LocationRequestDialogComponent } from "./location-request/location-request-dialog.component";
 import { LocationSearchDialogComponent } from "./location-search/location-search-dialog.component";
 
 const routes: Routes = [
@@ -17,5 +18,5 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class ContactsRoutingModule {
-  static components = [ContactListComponent , ContactCardComponent, LocationSearchDialogComponent];
+  static components = [ContactListComponent , ContactCardComponent, LocationSearchDialogComponent, LocationRequestDialogComponent];
 }

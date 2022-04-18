@@ -5,11 +5,10 @@
       <p [innerHtml]="contact.description"></p>
     </div>
     <div>
-      <button mat-icon-button (click)="call(contact)">
-        <!-- <a href="tel:{{ contact.number }}"><mat-icon>call</mat-icon></a> -->
+      <button class="callBtn" mat-icon-button (click)="call(contact)">
         <mat-icon>call</mat-icon>
       </button>
-      <button mat-icon-button (click)="report(contact)">
+      <button class="reportBtn" mat-icon-button (click)="report(contact)">
         <mat-icon>report</mat-icon>
       </button>
     </div>

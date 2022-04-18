@@ -59,10 +59,11 @@ export class AppComponent {
     }
 
     const city = window.localStorage.getItem('city');
-    this.currentLocation = city ? city : 'Set Location';
     this.locationService.locationChanged.subscribe((cityChanged) => {
       if (cityChanged != '') {
         this.currentLocation = cityChanged;
+      } else if(city) {
+        this.currentLocation = city;
       } else {
         this.currentLocation = 'Set Location';
       }
@@ -94,7 +95,8 @@ export class AppComponent {
   }
 
   removeLocation() {
-    this.locationService.locationChanged.next('');
+    console.log('Removing Current Location');
     window.localStorage.removeItem('city');
+    this.locationService.locationChanged.next('');
   }
 }

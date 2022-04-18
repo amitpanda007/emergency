@@ -5,11 +5,16 @@
       [contact]="contact"
     ></contact-card>
   </div>
-  <div *ngIf="!contactList?.contactInfos">
+  <div *ngIf="!contactList?.contactInfos && isLocationSet">
     <p>
       We don't have data for your city at this moment. Register a request for us
       to add your city.
     </p>
-    <button mat-flat-button color="primary">City Request</button>
+    <div class="actionBtn">
+      <button mat-flat-button color="primary" (click)="requestNewCity()">City Request</button>
+    </div>
+  </div>
+  <div *ngIf="!contactList?.contactInfos && !isLocationSet">
+    <p>You have not set any location. Please "Set Location" to see Emergency Contacts.</p>
   </div>
 </div>

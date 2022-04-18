@@ -35,7 +35,7 @@
     height: 80px;
     display: flex;
     align-items: center;
-    background-color: #000000;
+    background-color: #6b6b6b;
     color: white;
     font-weight: 600;
   }
@@ -81,9 +81,19 @@
     fill: #888;
   }
 
-  .footer {
+  /* .footer {
     display: flex;
     justify-content: center;
+  } */
+
+  .footer {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    background: #C1C1C1;
   }
 
   @media screen and (max-width: 575px) {
@@ -93,6 +103,9 @@
     }
     header {
       font-size: 32px;
+    }
+    .toolbar {
+      font-size: 28px;
     }
     .toolbar img {
       width: 60px;
@@ -106,8 +119,12 @@
   <span class="header">Emergency</span>
   <div class="spacer"></div>
 
-  <mat-chip-list aria-label="Location Selection">
-    <mat-chip color="accent" selected (click)="chnageLocation()" (removed)="removeLocation()"
+  <mat-chip-list aria-label="Location Selection" class="locationBtn">
+    <mat-chip
+      color="accent"
+      selected
+      (click)="chnageLocation()"
+      (removed)="removeLocation()"
       >{{ currentLocation }}
       <button matChipRemove *ngIf="currentLocation != 'Set Location'">
         <mat-icon>cancel</mat-icon>
@@ -116,8 +133,10 @@
   </mat-chip-list>
 </div>
 
-<router-outlet></router-outlet>
-<contact-list></contact-list>
+<div class="container">
+  <router-outlet></router-outlet>
+  <contact-list></contact-list>
+</div>
 
 <div class="footer">
   <p>© 2022, Emergency.com</p>
