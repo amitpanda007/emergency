@@ -5,6 +5,7 @@ import { LocationService } from './services/location.service';
 import { MatDialog } from '@angular/material/dialog';
 import { LocationSearchDialogComponent } from './contacts/location-search/location-search-dialog.component';
 import { BehaviorSubject } from 'rxjs';
+import { ContactService } from './services/contact.service';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,8 @@ export class AppComponent {
   constructor(
     private _snackBar: MatSnackBar,
     private dialog: MatDialog,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private contactService: ContactService
   ) {}
 
   ngOnInit() {
@@ -58,8 +60,8 @@ export class AppComponent {
       }
     }
 
-    const city = window.localStorage.getItem('city');
     this.locationService.locationChanged.subscribe((cityChanged) => {
+      const city = window.localStorage.getItem('city');
       if (cityChanged != '') {
         this.currentLocation = cityChanged;
       } else if(city) {
@@ -98,5 +100,6 @@ export class AppComponent {
     console.log('Removing Current Location');
     window.localStorage.removeItem('city');
     this.locationService.locationChanged.next('');
+    this.contactService.contactsChanged.next(undefined);
   }
 }

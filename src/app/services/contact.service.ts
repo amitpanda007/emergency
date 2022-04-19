@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
 import {
   Firestore,
-  doc,
   collection,
-  onSnapshot,
-  DocumentReference,
-  docSnapshots,
   CollectionReference,
-  collectionSnapshots,
   getDocs,
   query,
+  addDoc,
 } from '@angular/fire/firestore';
 import { where } from '@firebase/firestore';
 import { Subject } from 'rxjs';
+import { ContactReporttDialogData } from '../contacts/contact-report/contact-report-dialog.component';
 import { Contact } from '../models/contact';
 
 @Injectable()
@@ -36,5 +33,13 @@ export class ContactService {
       this.allContacts = firstDocument.data() as Contact;
       this.contactsChanged.next(this.allContacts);
     }
+  }
+
+  async reportContact(contactDetail: ContactReporttDialogData, problemText: string) {
+    await addDoc(collection(this.firestore, "reports"), {
+      problemText: problemText,
+      dateCreated: new Date(),
+      contactDetail: contactDetail
+    });
   }
 }

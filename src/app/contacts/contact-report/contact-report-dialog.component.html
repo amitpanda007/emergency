@@ -1,0 +1,26 @@
+<div>
+  <p class="sub-header">Reporting for below contact</p>
+  <div *ngIf="data">
+    <p [innerHTML]="">{{data.contactInfo.name}}({{ data.contactInfo.telephone }}), {{data.city}}</p>
+  </div>
+  <textarea
+    matInput
+    name="problemText"
+    [(ngModel)]="problemText"
+    placeholder="Eg. This number is not active anymore..."
+    cdkTextareaAutosize
+    cdkAutosizeMinRows="1"
+    cdkAutosizeMaxRows="5"
+  ></textarea>
+
+  <div>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="submitRequest()"
+      [disabled]="!problemText"
+    >
+      submit
+    </button>
+  </div>
+</div>
