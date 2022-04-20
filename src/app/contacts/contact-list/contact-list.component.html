@@ -1,11 +1,29 @@
 <div class="section">
-  <div *ngIf="contactList?.contactInfos">
+  <p class="sub-header">Central Contacts</p>
+  <div *ngIf="contactList?.contactInfos?.centralNumbers">
     <contact-card
-      *ngFor="let contact of contactList?.contactInfos"
+      *ngFor="let contact of contactList?.contactInfos?.centralNumbers"
       [contact]="contact"
     ></contact-card>
   </div>
   <mat-divider></mat-divider>
+
+  <p class="sub-header">Major Helplines</p>
+  <div *ngIf="contactList?.contactInfos?.majorHelplines">
+    <contact-card
+      *ngFor="let contact of contactList?.contactInfos?.majorHelplines"
+      [contact]="contact"
+    ></contact-card>
+  </div>
+  <mat-divider></mat-divider>
+
+  <p class="sub-header">User Provided Numbers</p>
+  <div *ngIf="contactList?.contactInfos?.userProvidedNumbers">
+    <contact-card
+      *ngFor="let contact of contactList?.contactInfos?.userProvidedNumbers"
+      [contact]="contact"
+    ></contact-card>
+  </div>
 
   <div *ngIf="!contactList?.contactInfos && isLocationSet">
     <p>

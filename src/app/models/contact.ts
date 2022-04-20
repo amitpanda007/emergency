@@ -1,6 +1,12 @@
 export interface Contact {
   location: string;
-  contactInfos: ContactInfo[];
+  contactInfos: ContactInfos;
+}
+
+export interface ContactInfos {
+  centralNumbers: ContactInfo[];
+  majorHelplines: ContactInfo[];
+  userProvidedNumbers: ContactInfo[];
 }
 
 export interface ContactInfo {
