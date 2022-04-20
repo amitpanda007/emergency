@@ -5,6 +5,8 @@
       [contact]="contact"
     ></contact-card>
   </div>
+  <mat-divider></mat-divider>
+
   <div *ngIf="!contactList?.contactInfos && isLocationSet">
     <p>
       We don't have data for your city at this moment. Register a request for us
@@ -16,5 +18,9 @@
   </div>
   <div *ngIf="!contactList?.contactInfos && !isLocationSet">
     <p>You have not set any location. Please "Set Location" to see Emergency Contacts.</p>
+  </div>
+
+  <div *ngIf="isLoading" class="spinner-bg">
+    <mat-spinner class="spinner"></mat-spinner>
   </div>
 </div>

@@ -15,6 +15,7 @@ import { LocationRequestDialogComponent, LocationRequestDialogResult } from '../
 })
 export class ContactListComponent implements OnInit {
 
+  public isLoading: boolean = false;
   public contactList!: Contact;
   public isLocationSet: boolean = false;
 
@@ -26,19 +27,14 @@ export class ContactListComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    // this.geolocation.requestLocation((location: PlaceLocation) => {
-    //   if (location) {
-    //     console.log(location.latitude);
-    //     console.log(location.longitude);
-    //     const url = this.geolocation.getMapLink(location);
-    //     console.log(url);
-    //   }
-    // });
-
+    this.isLoading = true;
     const currentCity: string = window.localStorage.getItem('city') as string;
     if(currentCity != null) {
       this.isLocationSet = true;
+    }else {
+      this.isLoading = false;
     }
+
     this.locationService.locationChanged.subscribe((location) => {
       this.contactService.getContactCollection(location);
     });
@@ -47,6 +43,7 @@ export class ContactListComponent implements OnInit {
     this.contactService.contactsChanged.subscribe((contacts) => {
       console.log(contacts);
       this.contactList = contacts;
+      this.isLoading = false;
     });
   }
 
