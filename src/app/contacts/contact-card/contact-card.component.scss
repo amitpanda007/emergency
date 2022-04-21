@@ -16,17 +16,31 @@
 }
 
 .reportBtn {
-  color:#DD2C00;
+  color:#f5a527;
   font-size: 40px;
   margin-left: 0.5rem;
 }
 
 h2 { 
   font-size: 16px;
+  margin: 0;
+}
+
+h3 { 
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
 }
 
 .icons {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-left: 1px dotted;
+  height: 5rem;
+}
+
+.desc {
+  font-size: 12px;
+  font-weight: 400;
 }

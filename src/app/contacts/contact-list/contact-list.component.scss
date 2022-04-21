@@ -28,10 +28,35 @@
     align-items: center;
     align-content: center;
     justify-content: space-between;
-    margin-top: 5px;
-    margin-bottom: 1em;
+    margin: 0;
     font-size: small;
     font-weight: 600;
     color: dimgray;
     font-size: 1em;
+  }
+
+  .sub-header-2 {
+    background-color: lightslategray;
+    color: white;
+    padding: 0 1rem;
+  }
+
+.collapsible {
+    display: block;
+    color: #444;
+    cursor: pointer;
+  }
+  
+  .active, .collapsible:hover {
+    background-color: #ccc;
+  }
+
+  .collapsed {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+  }
+
+  p { 
+    margin: 0
   }

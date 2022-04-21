@@ -32,6 +32,8 @@ export class ContactService {
     if (firstDocument) {
       this.allContacts = firstDocument.data() as Contact;
       this.contactsChanged.next(this.allContacts);
+    }else {
+      this.contactsChanged.next();
     }
   }
 

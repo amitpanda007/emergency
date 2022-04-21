@@ -1,14 +1,15 @@
 <mat-card class="card" *ngIf="contact">
   <mat-card-content class="content">
-    <div>
-      <h2 [innerHtml]="contactNameWithNumber"></h2>
-      <p [innerHtml]="contact.description"></p>
+    <div class="details">
+      <h2 [innerHtml]="contact.name"></h2>
+      <h3 [innerHtml]="contact.telephone"></h3>
+      <p [innerHtml]="contact.description" class="desc"></p>
     </div>
     <div class="icons">
-      <button class="callBtn" mat-icon-button (click)="call(contact)">
+      <button class="callBtn" mat-icon-button (click)="call(contact)" matTooltip="Call">
         <mat-icon [inline]="true">call</mat-icon>
       </button>
-      <button class="reportBtn" mat-icon-button (click)="report(contact)">
+      <button class="reportBtn" mat-icon-button (click)="report(contact)" matTooltip="Report">
         <mat-icon [inline]="true">report</mat-icon>
       </button>
     </div>

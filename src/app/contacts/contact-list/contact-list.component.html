@@ -1,28 +1,58 @@
 <div class="section">
-  <p class="sub-header">Central Contacts</p>
   <div *ngIf="contactList?.contactInfos?.centralNumbers">
-    <contact-card
-      *ngFor="let contact of contactList?.contactInfos?.centralNumbers"
-      [contact]="contact"
-    ></contact-card>
+    <div class="sub-header sub-header-2" (click)="collapseExpand('one')">
+      <p>Central Contacts</p>
+      <button mat-icon-button aria-label="Expand and collapse" *ngIf="isExpandedOne">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="Expand and collapse" *ngIf="!isExpandedOne">
+        <mat-icon>remove</mat-icon>
+      </button>
+    </div>
+    <div class="content" [ngClass]="{'sub-header collapsible' : !isExpandedOne, 'collapsed' : isExpandedOne}">
+      <contact-card
+        *ngFor="let contact of contactList?.contactInfos?.centralNumbers"
+        [contact]="contact"
+      ></contact-card>
+      <mat-divider></mat-divider>
+    </div>
   </div>
-  <mat-divider></mat-divider>
 
-  <p class="sub-header">Major Helplines</p>
   <div *ngIf="contactList?.contactInfos?.majorHelplines">
-    <contact-card
-      *ngFor="let contact of contactList?.contactInfos?.majorHelplines"
-      [contact]="contact"
-    ></contact-card>
+    <div class="sub-header sub-header-2" (click)="collapseExpand('two')">
+      <p>Major Helplines</p>
+      <button mat-icon-button aria-label="Expand and collapse" *ngIf="isExpandedTwo">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="Expand and collapse" *ngIf="!isExpandedTwo">
+        <mat-icon>remove</mat-icon>
+      </button>
+    </div>
+    <div class="content" [ngClass]="{'sub-header collapsible' : !isExpandedTwo, 'collapsed' : isExpandedTwo}">
+      <contact-card
+        *ngFor="let contact of contactList?.contactInfos?.majorHelplines"
+        [contact]="contact"
+      ></contact-card>
+      <mat-divider></mat-divider>
+    </div>
   </div>
-  <mat-divider></mat-divider>
 
-  <p class="sub-header">User Provided Numbers</p>
   <div *ngIf="contactList?.contactInfos?.userProvidedNumbers">
-    <contact-card
-      *ngFor="let contact of contactList?.contactInfos?.userProvidedNumbers"
-      [contact]="contact"
-    ></contact-card>
+    <div class="sub-header sub-header-2" (click)="collapseExpand('three')">
+      <p>User Provided Numbers</p>
+      <button mat-icon-button aria-label="Expand and collapse" *ngIf="isExpandedThree">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="Expand and collapse" *ngIf="!isExpandedThree">
+        <mat-icon>remove</mat-icon>
+      </button>
+    </div>
+    <div class="content" [ngClass]="{'sub-header collapsible' : !isExpandedThree, 'collapsed' : isExpandedThree}">
+      <contact-card
+        *ngFor="let contact of contactList?.contactInfos?.userProvidedNumbers"
+        [contact]="contact"
+      ></contact-card>
+    </div>
   </div>
 
   <div *ngIf="!contactList?.contactInfos && isLocationSet">
@@ -31,11 +61,16 @@
       to add your city.
     </p>
     <div class="actionBtn">
-      <button mat-flat-button color="primary" (click)="requestNewCity()">City Request</button>
+      <button mat-flat-button color="primary" (click)="requestNewCity()">
+        City Request
+      </button>
     </div>
   </div>
   <div *ngIf="!contactList?.contactInfos && !isLocationSet">
-    <p>You have not set any location. Please "Set Location" to see Emergency Contacts.</p>
+    <p>
+      You have not set any location. Please "Set Location" to see Emergency
+      Contacts.
+    </p>
   </div>
 
   <div *ngIf="isLoading" class="spinner-bg">
