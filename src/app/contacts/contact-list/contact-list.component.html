@@ -9,7 +9,7 @@
         <mat-icon>remove</mat-icon>
       </button>
     </div>
-    <div class="content" [ngClass]="{'sub-header collapsible' : !isExpandedOne, 'collapsed' : isExpandedOne}">
+    <div class="content sub-header" [ngClass]="{'sub-header collapsible' : !isExpandedOne, 'collapsed' : isExpandedOne}">
       <contact-card
         *ngFor="let contact of contactList?.contactInfos?.centralNumbers"
         [contact]="contact"

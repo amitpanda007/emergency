@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Contact } from 'src/app/models/contact';
 import { NewLocation } from 'src/app/models/new-location';
@@ -16,6 +22,8 @@ import {
   styleUrls: ['contact-list.component.scss'],
 })
 export class ContactListComponent implements OnInit {
+  @ViewChild('contentCardOneRef') contentCardOneRef!: ElementRef;
+
   public isLoading: boolean = false;
   public contactList!: Contact;
   public isLocationSet: boolean = false;
@@ -26,7 +34,8 @@ export class ContactListComponent implements OnInit {
   constructor(
     private contactService: ContactService,
     private locationService: LocationService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private renderer: Renderer2
   ) {}
 
   async ngOnInit() {
@@ -50,7 +59,7 @@ export class ContactListComponent implements OnInit {
       this.isLocationSet = true;
     } else {
       this.isLoading = false;
-      this.isLocationSet = false;      
+      this.isLocationSet = false;
     }
     return currentCity;
   }
@@ -62,7 +71,7 @@ export class ContactListComponent implements OnInit {
     });
 
     dislogRef.afterClosed().subscribe((result: LocationRequestDialogResult) => {
-      if(!result) {
+      if (!result) {
         return;
       }
       const newCity: NewLocation = result.newCity;
@@ -71,12 +80,12 @@ export class ContactListComponent implements OnInit {
   }
 
   collapseExpand(data: string) {
-    if(data == "one") {
+    if (data == 'one') {
       this.isExpandedOne = !this.isExpandedOne;
-    }else if(data == "two") {
+      
+    } else if (data == 'two') {
       this.isExpandedTwo = !this.isExpandedTwo;
-    }
-    else if(data == "three") {
+    } else if (data == 'three') {
       this.isExpandedThree = !this.isExpandedThree;
     }
   }

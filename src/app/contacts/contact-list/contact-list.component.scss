@@ -45,6 +45,10 @@
     display: block;
     color: #444;
     cursor: pointer;
+    max-height: 600px;
+    opacity: 1;
+    transition: opacity .3s ease-in-out, max-height .2s ease-in-out;
+    transform:translate(0);
   }
   
   .active, .collapsible:hover {
@@ -53,8 +57,10 @@
 
   .collapsed {
     padding: 0 18px;
-    display: none;
     overflow: hidden;
+    transform:translate(9999px);
+    opacity: 0;
+    max-height: 0px;
   }
 
   p { 
