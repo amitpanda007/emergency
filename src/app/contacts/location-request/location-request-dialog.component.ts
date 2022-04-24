@@ -10,9 +10,10 @@ import { LocationService } from 'src/app/services/location.service';
   templateUrl: './location-request-dialog.component.html',
   styleUrls: ['./location-request-dialog.component.scss'],
 })
-export class LocationRequestDialogComponent{
+export class LocationRequestDialogComponent {
   public cityName!: string;
   public stateName!: string;
+  public countryName!: string;
   public pin!: string;
 
   constructor(
@@ -25,12 +26,13 @@ export class LocationRequestDialogComponent{
   }
 
   submitRequest() {
-    const newCity = {
+    const newCity: NewLocation = {
       cityName: this.cityName,
       stateName: this.stateName,
-      pin: this.pin
-    }
-    this.dialogRef.close({newCity: newCity});
+      countryName: this.countryName,
+      pin: this.pin,
+    };
+    this.dialogRef.close({ newCity: newCity });
   }
 }
 

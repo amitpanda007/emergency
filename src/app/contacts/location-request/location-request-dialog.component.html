@@ -18,6 +18,17 @@
     placeholder="State name"
     [(ngModel)]="stateName"
     autocomplete="off"
+    title="If no state, provide same name as city."
+  />
+
+  <input
+    cdkFocusInitial
+    class="search-input"
+    name="countryName"
+    type="text"
+    placeholder="State name"
+    [(ngModel)]="countryName"
+    autocomplete="off"
   />
 
   <input
@@ -31,6 +42,13 @@
   />
 
   <div>
-    <button mat-flat-button color="primary" (click)="submitRequest()" [disabled]="!cityName || !stateName || !pin">submit</button>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="submitRequest()"
+      [disabled]="!cityName || !stateName || !countryName || !pin"
+    >
+      submit
+    </button>
   </div>
 </div>

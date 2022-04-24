@@ -1,5 +1,5 @@
 export interface Contact {
-  location: string;
+  location: Array<string>;
   contactInfos: ContactInfos;
 }
 

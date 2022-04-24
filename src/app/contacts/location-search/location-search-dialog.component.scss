@@ -29,10 +29,15 @@
   outline: none;
   padding: 0.6rem 0.6rem 0.6rem 1.5rem;
   // width: calc(100% - 4rem);
-  width: 12.4rem;
+  width: 90%;
   margin: 1em 0;
 }
 
 .select {
   cursor: pointer;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
 }

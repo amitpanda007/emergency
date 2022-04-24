@@ -42,12 +42,18 @@ export class ContactListComponent implements OnInit {
     this.isLoading = true;
     const currentCity = this.checkCurrentCity();
     this.locationService.locationChanged.subscribe((location) => {
-      this.contactService.getContactCollection(location);
+      if (location) {
+        this.contactService.getContactCollection(location);
+      }
     });
 
-    this.contactService.getContactCollection(currentCity);
+    console.log(currentCity);
+    if (currentCity) {
+      this.contactService.getContactCollection(currentCity);
+    }
     this.contactService.contactsChanged.subscribe((contacts) => {
       this.contactList = contacts;
+      // console.log(JSON.stringify(this.contactList));
       this.isLoading = false;
       this.checkCurrentCity();
     });
@@ -82,7 +88,6 @@ export class ContactListComponent implements OnInit {
   collapseExpand(data: string) {
     if (data == 'one') {
       this.isExpandedOne = !this.isExpandedOne;
-      
     } else if (data == 'two') {
       this.isExpandedTwo = !this.isExpandedTwo;
     } else if (data == 'three') {

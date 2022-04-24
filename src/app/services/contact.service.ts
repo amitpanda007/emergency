@@ -23,8 +23,12 @@ export class ContactService {
   constructor(private firestore: Firestore) {}
 
   async getContactCollection(location: string) {
+    console.log(location);
     const contactColRef = collection(this.firestore, 'contacts');
-    const q = query(contactColRef, where('location', '==', location));
+    const q = query(
+      contactColRef,
+      where('location', 'array-contains-any', [location])
+    );
 
     const querySnapshot = await getDocs(q);
     const firstDocument = querySnapshot.docs[0];
@@ -32,16 +36,19 @@ export class ContactService {
     if (firstDocument) {
       this.allContacts = firstDocument.data() as Contact;
       this.contactsChanged.next(this.allContacts);
-    }else {
+    } else {
       this.contactsChanged.next();
     }
   }
 
-  async reportContact(contactDetail: ContactReporttDialogData, problemText: string) {
-    await addDoc(collection(this.firestore, "reports"), {
+  async reportContact(
+    contactDetail: ContactReporttDialogData,
+    problemText: string
+  ) {
+    await addDoc(collection(this.firestore, 'reports'), {
       problemText: problemText,
       dateCreated: new Date(),
-      contactDetail: contactDetail
+      contactDetail: contactDetail,
     });
   }
 }

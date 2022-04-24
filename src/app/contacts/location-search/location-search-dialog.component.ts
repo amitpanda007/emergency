@@ -13,6 +13,7 @@ export class LocationSearchDialogComponent implements OnInit {
   private locationSearchSubscription!: Subscription;
   public citySearch!: string;
   public locationList!: Array<Location>;
+  public selectedCity!: string;
 
   constructor(
     public dialogRef: MatDialogRef<LocationSearchDialogComponent>,
@@ -21,14 +22,8 @@ export class LocationSearchDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.locationSearchSubscription =
-    //   this.locationService.locationDataChanged.subscribe((locations: any) => {
-    //     console.log(locations);
-    //     this.locationList = locations;
-    //   });
-
     this.locationSearchSubscription =
-      this.locationService.locationSearchData.subscribe((locations: any) => {
+      this.locationService.citySearchData.subscribe((locations: Location[]) => {
         this.locationList = locations;
       });
   }
@@ -45,9 +40,9 @@ export class LocationSearchDialogComponent implements OnInit {
     // console.log(this.citySearch);
     const term = this.citySearch.trim();
     if (term.length > 2) {
-      console.log('Start Searching Firebase');
-      // this.locationService.getContactCollection(term);
-      this.locationService.getCountryByName(term);
+      setTimeout(() => {
+        this.locationService.getCityByName(term.toLocaleLowerCase());
+      }, 300);
     }
   }
 

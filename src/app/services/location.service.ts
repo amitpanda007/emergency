@@ -12,6 +12,7 @@ import {
 } from '@angular/fire/firestore';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Contact } from '../models/contact';
+import { Location } from '../models/location';
 import { NewLocation } from '../models/new-location';
 
 @Injectable()
@@ -23,7 +24,8 @@ export class LocationService {
   private locationCol!: CollectionReference;
 
   public locationDataChanged = new Subject<Location[]>();
-  public locationSearchData = new Subject();
+  public countrySearchData = new Subject();
+  public citySearchData = new Subject<Location[]>();
 
   constructor(private http: HttpClient, private firestore: Firestore) {}
 
@@ -32,7 +34,10 @@ export class LocationService {
     this.locationCol = collection(this.firestore, 'locations');
 
     const searchTerm = this.capitalizeFirstLetter(partialCity);
-    const q = query(this.locationCol, where('name', '>', searchTerm));
+    const q = query(
+      this.locationCol,
+      where('name', 'array-contains-any', [searchTerm])
+    );
 
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((locData) => {
@@ -43,10 +48,18 @@ export class LocationService {
   }
 
   getCountryByName(partialCity: string) {
-    const url = `http://localhost:5000/search?partialSearch=${partialCity}`;
+    const url = `http://localhost:5000/search/country?partialSearch=${partialCity}`;
     this.http.get(url).subscribe((resp) => {
       console.log(resp);
-      this.locationSearchData.next(resp);
+      this.countrySearchData.next(resp);
+    });
+  }
+
+  getCityByName(partialCity: string) {
+    const url = `http://localhost:5000/search/city?partialSearch=${partialCity}`;
+    this.http.get(url).subscribe((resp) => {
+      console.log(resp);
+      this.citySearchData.next(resp as Location[]);
     });
   }
 

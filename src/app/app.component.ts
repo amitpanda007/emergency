@@ -64,7 +64,7 @@ export class AppComponent {
       const city = window.localStorage.getItem('city');
       if (cityChanged != '') {
         this.currentLocation = cityChanged;
-      } else if(city) {
+      } else if (city) {
         this.currentLocation = city;
       } else {
         this.currentLocation = 'Set Location';
@@ -80,7 +80,8 @@ export class AppComponent {
     console.log('Set Location');
     this.isSearching = !this.isSearching;
     const dialogRef = this.dialog.open(LocationSearchDialogComponent, {
-      width: '450px',
+      width: '80%',
+      height: '60%',
       data: {},
     });
 

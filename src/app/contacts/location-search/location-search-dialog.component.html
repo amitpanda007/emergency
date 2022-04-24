@@ -1,4 +1,4 @@
-<div>
+<div class="container">
   <p class="sub-header">Search & Set your location</p>
   <input
     cdkFocusInitial
@@ -8,10 +8,15 @@
     placeholder="City name"
     [(ngModel)]="citySearch"
     autocomplete="off"
-    (ngModelChange)="cityInputChanged()"  
+    (ngModelChange)="cityInputChanged()"
   />
 
   <div>
-    <p class="select" *ngFor="let location of locationList" [innerHTML]="location?.name" (click)="selectLocation(location.name)"></p>
+    <p
+      class="select"
+      *ngFor="let location of locationList"
+      [innerHTML]="location?.name!"
+      (click)="selectLocation(location?.name!)"
+    ></p>
   </div>
 </div>
