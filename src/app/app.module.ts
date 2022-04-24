@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContactsModule } from './contacts/contacts.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { GeolocationService } from './services/geolocation.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -28,6 +29,7 @@ import { LocationSearchDialogComponent } from './contacts/location-search/locati
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     AppRoutingModule,
     SharedModule,
     ContactsModule,
@@ -50,6 +52,6 @@ import { LocationSearchDialogComponent } from './contacts/location-search/locati
     LocationService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [LocationSearchDialogComponent]
+  entryComponents: [LocationSearchDialogComponent],
 })
 export class AppModule {}

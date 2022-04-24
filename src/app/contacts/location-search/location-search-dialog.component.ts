@@ -21,9 +21,14 @@ export class LocationSearchDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // this.locationSearchSubscription =
+    //   this.locationService.locationDataChanged.subscribe((locations: any) => {
+    //     console.log(locations);
+    //     this.locationList = locations;
+    //   });
+
     this.locationSearchSubscription =
-      this.locationService.locationDataChanged.subscribe((locations: any) => {
-        console.log(locations);
+      this.locationService.locationSearchData.subscribe((locations: any) => {
         this.locationList = locations;
       });
   }
@@ -41,7 +46,8 @@ export class LocationSearchDialogComponent implements OnInit {
     const term = this.citySearch.trim();
     if (term.length > 2) {
       console.log('Start Searching Firebase');
-      this.locationService.getContactCollection(term);
+      // this.locationService.getContactCollection(term);
+      this.locationService.getCountryByName(term);
     }
   }
 

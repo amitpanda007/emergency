@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   Firestore,
@@ -22,10 +23,11 @@ export class LocationService {
   private locationCol!: CollectionReference;
 
   public locationDataChanged = new Subject<Location[]>();
+  public locationSearchData = new Subject();
 
-  constructor(private firestore: Firestore) {}
+  constructor(private http: HttpClient, private firestore: Firestore) {}
 
-  async getContactCollection(partialCity: string) {
+  async getLocationCollection(partialCity: string) {
     this.filterLocation = [];
     this.locationCol = collection(this.firestore, 'locations');
 
@@ -40,15 +42,23 @@ export class LocationService {
     this.locationDataChanged.next([...this.filterLocation]);
   }
 
+  getCountryByName(partialCity: string) {
+    const url = `http://localhost:5000/search?partialSearch=${partialCity}`;
+    this.http.get(url).subscribe((resp) => {
+      console.log(resp);
+      this.locationSearchData.next(resp);
+    });
+  }
+
   capitalizeFirstLetter(str: string): string {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
   async requestToAddNewLocation(location: NewLocation) {
-    await addDoc(collection(this.firestore, "requests"), {
+    await addDoc(collection(this.firestore, 'requests'), {
       cityName: location.cityName,
       stateName: location.stateName,
-      pin: location.pin
+      pin: location.pin,
     });
   }
 }
