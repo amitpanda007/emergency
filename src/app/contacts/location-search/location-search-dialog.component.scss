@@ -33,6 +33,16 @@
   margin: 1em 0;
 }
 
+.search-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-section button {
+  color: #00ff00;
+}
+
 .select {
   cursor: pointer;
 }

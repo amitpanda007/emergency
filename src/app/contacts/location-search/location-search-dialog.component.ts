@@ -50,6 +50,10 @@ export class LocationSearchDialogComponent implements OnInit {
     console.log(cityName);
     this.dialogRef.close({ selectedCity: cityName });
   }
+
+  setLocationWithoutSearch() {
+    this.dialogRef.close({ selectedCity: this.citySearch });
+  }
 }
 
 export interface LocationDialogData {

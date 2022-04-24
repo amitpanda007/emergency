@@ -1,16 +1,24 @@
 <div class="container">
   <p class="sub-header">Search & Set your location</p>
-  <input
-    cdkFocusInitial
-    class="search-input"
-    name="citySearch"
-    type="email"
-    placeholder="City name"
-    [(ngModel)]="citySearch"
-    autocomplete="off"
-    (ngModelChange)="cityInputChanged()"
-  />
-
+  <div class="search-section">
+    <input
+      cdkFocusInitial
+      class="search-input"
+      name="citySearch"
+      type="email"
+      placeholder="City name"
+      [(ngModel)]="citySearch"
+      autocomplete="off"
+      (ngModelChange)="cityInputChanged()"
+    />
+    <button
+      mat-icon-button
+      aria-label="confirm typed location"
+      (click)="setLocationWithoutSearch()"
+    >
+      <mat-icon>done</mat-icon>
+    </button>
+  </div>
   <div>
     <p
       class="select"
