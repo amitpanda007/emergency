@@ -1,15 +1,14 @@
 <div class="container">
   <p class="sub-header">Search & Set your location</p>
-  <div class="search-section">
+  <div class="search-section" [formGroup]="myForm">
     <input
       cdkFocusInitial
       class="search-input"
       name="citySearch"
       type="email"
       placeholder="City name"
-      [(ngModel)]="citySearch"
       autocomplete="off"
-      (ngModelChange)="cityInputChanged()"
+      formControlName="searchControl"
     />
     <button
       mat-icon-button

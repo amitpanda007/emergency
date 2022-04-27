@@ -8,6 +8,7 @@ import {
   addDoc,
 } from '@angular/fire/firestore';
 import { where } from '@firebase/firestore';
+import { enableIndexedDbPersistence } from "firebase/firestore"; 
 import { Subject } from 'rxjs';
 import { ContactReporttDialogData } from '../contacts/contact-report/contact-report-dialog.component';
 import { Contact } from '../models/contact';
@@ -20,7 +21,23 @@ export class ContactService {
 
   public contactsChanged = new Subject<Contact>();
 
-  constructor(private firestore: Firestore) {}
+  constructor(private firestore: Firestore) {
+    enableIndexedDbPersistence(firestore)
+    .then(() => {
+      console.log("Offline Cache Successfully Enabled");
+    })
+    .catch((err) => {
+        if (err.code == 'failed-precondition') {
+            // Multiple tabs open, persistence can only be enabled
+            // in one tab at a a time.
+            // ...
+        } else if (err.code == 'unimplemented') {
+            // The current browser does not support all of the
+            // features required to enable persistence
+            // ...
+        }
+    });
+  }
 
   async getContactCollection(location: string) {
     console.log(location);

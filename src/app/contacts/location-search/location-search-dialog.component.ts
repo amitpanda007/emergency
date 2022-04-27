@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { Location } from 'src/app/models/location';
 import { LocationService } from 'src/app/services/location.service';
 
@@ -14,6 +16,8 @@ export class LocationSearchDialogComponent implements OnInit {
   public citySearch!: string;
   public locationList!: Array<Location>;
   public selectedCity!: string;
+  public searchControl!: FormControl;
+  public myForm!: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<LocationSearchDialogComponent>,
@@ -22,6 +26,17 @@ export class LocationSearchDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.myForm = new FormGroup({
+      searchControl: new FormControl(),
+    });
+
+    this.myForm.controls['searchControl'].valueChanges
+      .pipe(debounceTime(300))
+      .subscribe((term) => {
+        console.log(term);
+        this.locationService.getCityByName(term.toLocaleLowerCase());
+      });
+
     this.locationSearchSubscription =
       this.locationService.citySearchData.subscribe((locations: Location[]) => {
         this.locationList = locations;
@@ -36,15 +51,15 @@ export class LocationSearchDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  cityInputChanged() {
-    // console.log(this.citySearch);
-    const term = this.citySearch.trim();
-    if (term.length > 2) {
-      setTimeout(() => {
-        this.locationService.getCityByName(term.toLocaleLowerCase());
-      }, 300);
-    }
-  }
+  // cityInputChanged() {
+  //   // console.log(this.citySearch);
+  //   const term = this.citySearch.trim();
+  //   if (term.length > 2) {
+  //     setTimeout(() => {
+  //       this.locationService.getCityByName(term.toLocaleLowerCase());
+  //     }, 600);
+  //   }
+  // }
 
   selectLocation(cityName: string): void {
     console.log(cityName);

@@ -27,6 +27,18 @@ export class AppComponent {
   ) {}
 
   ngOnInit() {
+    window.addEventListener('offline', () => {
+      this._snackBar.open('You are offline', 'Cancel', {
+        duration: 2000,
+      });
+    });
+
+    window.addEventListener('online', () => {
+      this._snackBar.open('Back online', 'Cancel', {
+        duration: 2000,
+      });
+    });
+
     if ((navigator as any).standalone == false) {
       // This is an iOS device  and we are in browser
       this._snackBar.open('You cna add this PWA to the Home Screen', '', {

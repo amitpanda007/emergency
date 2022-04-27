@@ -11,6 +11,7 @@ import { NewLocation } from 'src/app/models/new-location';
 import { ContactService } from 'src/app/services/contact.service';
 import { GeolocationService } from 'src/app/services/geolocation.service';
 import { LocationService } from 'src/app/services/location.service';
+import { ContactInfo } from '../contact-report/contact-report-dialog.component';
 import {
   LocationRequestDialogComponent,
   LocationRequestDialogResult,
@@ -23,9 +24,11 @@ import {
 })
 export class ContactListComponent implements OnInit {
   @ViewChild('contentCardOneRef') contentCardOneRef!: ElementRef;
+  public contactSearch!: string;
 
   public isLoading: boolean = false;
   public contactList!: Contact;
+  public contactListFiltered!: Contact;
   public isLocationSet: boolean = false;
   public isExpandedOne: boolean = false;
   public isExpandedTwo: boolean = false;
@@ -53,6 +56,11 @@ export class ContactListComponent implements OnInit {
     }
     this.contactService.contactsChanged.subscribe((contacts) => {
       this.contactList = contacts;
+      if(contacts && contacts.location) {
+        this.contactListFiltered = JSON.parse(JSON.stringify(contacts));
+      }else {
+        this.contactListFiltered = contacts;
+      }
       // console.log(JSON.stringify(this.contactList));
       this.isLoading = false;
       this.checkCurrentCity();
@@ -92,6 +100,33 @@ export class ContactListComponent implements OnInit {
       this.isExpandedTwo = !this.isExpandedTwo;
     } else if (data == 'three') {
       this.isExpandedThree = !this.isExpandedThree;
+    }
+  }
+
+  contactInputChanged() {
+    console.log(this.contactSearch);
+    if(this.contactSearch) {
+      this.contactListFiltered.contactInfos.centralNumbers = this.contactList.contactInfos.centralNumbers.filter((numbers: ContactInfo) => {
+        return (
+          numbers.name.toLowerCase().indexOf(this.contactSearch.toLowerCase()) > -1
+        );
+      })
+
+      this.contactListFiltered.contactInfos.majorHelplines = this.contactList.contactInfos.majorHelplines.filter((numbers: ContactInfo) => {
+        return (
+          numbers.name.toLowerCase().indexOf(this.contactSearch.toLowerCase()) > -1
+        );
+      })
+
+      this.contactListFiltered.contactInfos.userProvidedNumbers = this.contactList.contactInfos.userProvidedNumbers.filter((numbers: ContactInfo) => {
+        return (
+          numbers.name.toLowerCase().indexOf(this.contactSearch.toLowerCase()) > -1
+        );
+      })
+
+      console.log(this.contactListFiltered);
+    }else {
+      this.contactListFiltered = this.contactList;
     }
   }
 }
