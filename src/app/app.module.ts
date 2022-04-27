@@ -23,6 +23,7 @@ import {
 import { ContactService } from './services/contact.service';
 import { LocationService } from './services/location.service';
 import { LocationSearchDialogComponent } from './contacts/location-search/location-search-dialog.component';
+import { enableIndexedDbPersistence } from '@firebase/firestore';
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,7 +41,11 @@ import { LocationSearchDialogComponent } from './contacts/location-search/locati
       registrationStrategy: 'registerWhenStable:30000',
     }),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore()),
+    provideFirestore(() => {
+      const firestore = getFirestore();
+      enableIndexedDbPersistence(firestore);
+      return firestore;
+    }),
     provideAuth(() => getAuth()),
     provideStorage(() => getStorage()),
   ],
