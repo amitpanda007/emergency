@@ -14,7 +14,6 @@ import { ContactService } from './services/contact.service';
 })
 export class AppComponent {
   title: string = 'emergency';
-
   public isSearching: boolean = false;
   public locationList: Location[] = [];
   public currentLocation!: string;
@@ -28,6 +27,17 @@ export class AppComponent {
   ) {}
 
   ngOnInit() {
+    navigator.geolocation.getCurrentPosition(
+      function (pos) {
+        console.log('Location accessed');
+        console.log(pos);
+      },
+      function () {
+        console.log('User not allowed');
+      },
+      { timeout: 10000 }
+    );
+
     window.addEventListener('offline', () => {
       this.isOffline = true;
       this._snackBar.open('You are offline', 'Cancel', {
