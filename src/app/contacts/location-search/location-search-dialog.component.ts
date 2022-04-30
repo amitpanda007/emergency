@@ -67,7 +67,7 @@ export class LocationSearchDialogComponent implements OnInit {
   }
 
   setLocationWithoutSearch() {
-    this.dialogRef.close({ selectedCity: this.citySearch });
+    this.dialogRef.close({ selectedCity: this.myForm.controls['searchControl'].value });
   }
 }
 

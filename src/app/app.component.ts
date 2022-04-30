@@ -18,6 +18,7 @@ export class AppComponent {
   public isSearching: boolean = false;
   public locationList: Location[] = [];
   public currentLocation!: string;
+  public isOffline: boolean = false;
 
   constructor(
     private _snackBar: MatSnackBar,
@@ -28,12 +29,14 @@ export class AppComponent {
 
   ngOnInit() {
     window.addEventListener('offline', () => {
+      this.isOffline = true;
       this._snackBar.open('You are offline', 'Cancel', {
         duration: 2000,
       });
     });
 
     window.addEventListener('online', () => {
+      this.isOffline = false;
       this._snackBar.open('Back online', 'Cancel', {
         duration: 2000,
       });
@@ -114,5 +117,9 @@ export class AppComponent {
     window.localStorage.removeItem('city');
     this.locationService.locationChanged.next('');
     this.contactService.contactsChanged.next(undefined);
+  }
+
+  reloadPage() {
+    window.location.reload();
   }
 }

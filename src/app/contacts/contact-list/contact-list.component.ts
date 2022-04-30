@@ -46,6 +46,7 @@ export class ContactListComponent implements OnInit {
     const currentCity = this.checkCurrentCity();
     this.locationService.locationChanged.subscribe((location) => {
       if (location) {
+        this.isLoading = true;
         this.contactService.getContactCollection(location);
       }
     });
