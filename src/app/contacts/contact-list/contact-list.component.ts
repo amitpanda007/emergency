@@ -16,6 +16,7 @@ import {
   LocationRequestDialogComponent,
   LocationRequestDialogResult,
 } from '../location-request/location-request-dialog.component';
+import { LocationSearchDialogComponent } from '../location-search/location-search-dialog.component';
 
 @Component({
   selector: 'contact-list',
@@ -33,6 +34,7 @@ export class ContactListComponent implements OnInit {
   public isExpandedOne: boolean = false;
   public isExpandedTwo: boolean = false;
   public isExpandedThree: boolean = false;
+  public isLocationSearch: boolean = false;
 
   constructor(
     private contactService: ContactService,
@@ -57,9 +59,9 @@ export class ContactListComponent implements OnInit {
     }
     this.contactService.contactsChanged.subscribe((contacts) => {
       this.contactList = contacts;
-      if(contacts && contacts.location) {
+      if (contacts && contacts.location) {
         this.contactListFiltered = JSON.parse(JSON.stringify(contacts));
-      }else {
+      } else {
         this.contactListFiltered = contacts;
       }
       // console.log(JSON.stringify(this.contactList));
@@ -106,28 +108,64 @@ export class ContactListComponent implements OnInit {
 
   contactInputChanged() {
     console.log(this.contactSearch);
-    if(this.contactSearch) {
-      this.contactListFiltered.contactInfos.centralNumbers = this.contactList.contactInfos.centralNumbers.filter((numbers: ContactInfo) => {
-        return (
-          numbers.name.toLowerCase().indexOf(this.contactSearch.toLowerCase()) > -1
+    if (this.contactSearch) {
+      this.contactListFiltered.contactInfos.centralNumbers =
+        this.contactList.contactInfos.centralNumbers.filter(
+          (numbers: ContactInfo) => {
+            return (
+              numbers.name
+                .toLowerCase()
+                .indexOf(this.contactSearch.toLowerCase()) > -1
+            );
+          }
         );
-      })
 
-      this.contactListFiltered.contactInfos.majorHelplines = this.contactList.contactInfos.majorHelplines.filter((numbers: ContactInfo) => {
-        return (
-          numbers.name.toLowerCase().indexOf(this.contactSearch.toLowerCase()) > -1
+      this.contactListFiltered.contactInfos.majorHelplines =
+        this.contactList.contactInfos.majorHelplines.filter(
+          (numbers: ContactInfo) => {
+            return (
+              numbers.name
+                .toLowerCase()
+                .indexOf(this.contactSearch.toLowerCase()) > -1
+            );
+          }
         );
-      })
 
-      this.contactListFiltered.contactInfos.userProvidedNumbers = this.contactList.contactInfos.userProvidedNumbers.filter((numbers: ContactInfo) => {
-        return (
-          numbers.name.toLowerCase().indexOf(this.contactSearch.toLowerCase()) > -1
+      this.contactListFiltered.contactInfos.userProvidedNumbers =
+        this.contactList.contactInfos.userProvidedNumbers.filter(
+          (numbers: ContactInfo) => {
+            return (
+              numbers.name
+                .toLowerCase()
+                .indexOf(this.contactSearch.toLowerCase()) > -1
+            );
+          }
         );
-      })
 
       console.log(this.contactListFiltered);
-    }else {
+    } else {
       this.contactListFiltered = this.contactList;
     }
+  }
+
+  setLocation() {
+    console.log('Set Location');
+    this.isLocationSearch = !this.isLocationSearch;
+    const dialogRef = this.dialog.open(LocationSearchDialogComponent, {
+      width: '80%',
+      height: '60%',
+      data: {},
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      if (result == undefined) {
+        return;
+      }
+      if (result.selectedCity) {
+        this.locationService.locationChanged.next(result.selectedCity);
+        window.localStorage.setItem('city', result.selectedCity);
+      }
+    });
   }
 }

@@ -17,69 +17,89 @@
 }
 
 .section {
-    padding-bottom: 2rem;
+  padding-bottom: 2rem;
 }
 
 .actionBtn {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .spinner-bg {
-    position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 5000;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 5000;
 }
 
 .spinner {
-    margin:0 auto;
-    top: 50%;
+  margin: 0 auto;
+  top: 50%;
 }
 
 .sub-header {
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: space-between;
-    margin: 0;
-    font-size: small;
-    font-weight: 600;
-    color: dimgray;
-    font-size: 1em;
-  }
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+  margin: 0;
+  font-size: small;
+  font-weight: 600;
+  color: dimgray;
+  font-size: 1em;
+}
 
-  .sub-header-2 {
-    background-color: lightslategray;
-    color: white;
-    padding: 0 1rem;
-  }
+.sub-header-2 {
+  background-color: lightslategray;
+  color: white;
+  padding: 0 1rem;
+}
 
 .collapsible {
-    display: block;
-    color: #444;
-    cursor: pointer;
-    max-height: 600px;
-    opacity: 1;
-    transition: opacity .3s ease-in-out, max-height .2s ease-in-out;
-    transform:translate(0);
-  }
-  
-  .active, .collapsible:hover {
-    background-color: #ccc;
-  }
+  display: block;
+  color: #444;
+  cursor: pointer;
+  max-height: 600px;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out, max-height 0.2s ease-in-out;
+  transform: translate(0);
+}
 
-  .collapsed {
-    padding: 0 18px;
-    overflow: hidden;
-    transform:translate(9999px);
-    opacity: 0;
-    max-height: 0px;
-  }
+.active,
+.collapsible:hover {
+  background-color: #ccc;
+}
 
-  p { 
-    margin: 0
-  }
+.collapsed {
+  padding: 0 18px;
+  overflow: hidden;
+  transform: translate(9999px);
+  opacity: 0;
+  max-height: 0px;
+}
+
+p {
+  margin: 0;
+}
+
+.card-top {
+  display: flex;
+}
+
+.card-icon {
+  color: blue;
+  height: 60px;
+  width: 60px;
+  font-size: 60px;
+}
+
+.card-info {
+  margin-left: 1rem;
+}
+
+.card-info button {
+  float: right;
+}
