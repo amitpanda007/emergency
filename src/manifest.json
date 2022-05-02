@@ -4,10 +4,9 @@
   "orientation": "any",
   "scope": "/",
   "display": "standalone",
-
   "short_name": "Emergency",
-  "theme_color": "#472D21",
-  "background_color": "#C0B764",
+  "theme_color": "#595959",
+  "background_color": "#ececec",
   "icons": [
     {
       "src": "icons/icon_48.png",
