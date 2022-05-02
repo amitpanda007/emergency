@@ -1,5 +1,5 @@
 {
-  "name": "Emergency - Your local Emergency contacts",
+  "name": "Emergency - local emergency contacts",
   "start_url": "/",
   "orientation": "any",
   "scope": "/",
