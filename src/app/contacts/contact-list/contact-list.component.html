@@ -117,7 +117,7 @@
   </div>
 
   <div *ngIf="!contactList?.contactInfos && isLocationSet">
-    <mat-card>
+    <mat-card class="card">
       <mat-card-content>
         <div class="card-top">
           <mat-icon aria-hidden="false" aria-label="city icon" class="card-icon"
@@ -139,11 +139,11 @@
   </div>
 
   <div *ngIf="!contactList?.contactInfos && !isLocationSet">
-    <mat-card>
+    <mat-card class="card">
       <mat-card-content>
         <div class="card-top">
           <mat-icon aria-hidden="false" aria-label="city icon" class="card-icon"
-            >location_city</mat-icon
+            >add_location</mat-icon
           >
           <div class="card-info">
             <h2>Location Not Set</h2>
