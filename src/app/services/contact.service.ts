@@ -25,10 +25,15 @@ export class ContactService {
 
   async getContactCollection(location: string) {
     console.log(location);
+    const _location = [
+      this.capitalizeFirstLetter(location),
+      location.toUpperCase(),
+      location.toLowerCase(),
+    ];
     const contactColRef = collection(this.firestore, 'contacts');
     const q = query(
       contactColRef,
-      where('location', 'array-contains-any', [location])
+      where('location', 'array-contains-any', [..._location])
     );
 
     const querySnapshot = await getDocs(q);
@@ -40,6 +45,10 @@ export class ContactService {
     } else {
       this.contactsChanged.next();
     }
+  }
+
+  capitalizeFirstLetter(text: string) {
+    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
   }
 
   async reportContact(
