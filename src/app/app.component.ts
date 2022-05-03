@@ -38,6 +38,12 @@ export class AppComponent {
       { timeout: 10000 }
     );
 
+    if (navigator.onLine) {
+      this.isOffline = false;
+    } else {
+      this.isOffline = true;
+    }
+
     window.addEventListener('offline', () => {
       this.isOffline = true;
       this._snackBar.open('You are offline', 'Cancel', {

@@ -1,13 +1,12 @@
 {
-  "name": "Emergency - Your local Emergency contacts",
+  "name": "Emergency - local emergency contacts",
   "start_url": "/",
   "orientation": "any",
   "scope": "/",
   "display": "standalone",
-
   "short_name": "Emergency",
-  "theme_color": "#472D21",
-  "background_color": "#C0B764",
+  "theme_color": "#595959",
+  "background_color": "#ECECEC",
   "icons": [
     {
       "src": "icons/icon_48.png",
@@ -38,8 +37,8 @@
       "sizes": "192x192"
     },
     {
-      "src": "icons/icon_384.png",
-      "sizes": "384x384 "
+      "src": "icons/icon_184.png",
+      "sizes": "284x284 "
     },
     {
       "src": "icons/icon_512.png",
