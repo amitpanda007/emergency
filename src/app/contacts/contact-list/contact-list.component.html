@@ -13,27 +13,29 @@
   </div>
 
   <div *ngIf="contactListFiltered?.contactInfos?.centralNumbers">
-    <div class="sub-header sub-header-2" (click)="collapseExpand('one')">
-      <p>Central Contacts</p>
-      <button
-        mat-icon-button
-        aria-label="Expand and collapse"
-        *ngIf="isExpandedOne"
-      >
-        <mat-icon>add</mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        aria-label="Expand and collapse"
-        *ngIf="!isExpandedOne"
-      >
-        <mat-icon>remove</mat-icon>
-      </button>
+    <div (click)="collapseExpand('one')">
+      <div class="sub-header sub-header-2">
+        <p>Central Contacts</p>
+        <button
+          mat-icon-button
+          aria-label="Expand and collapse"
+          *ngIf="isExpandedOne"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          aria-label="Expand and collapse"
+          *ngIf="!isExpandedOne"
+        >
+          <mat-icon>remove</mat-icon>
+        </button>
+      </div>
     </div>
     <div
-      class="content sub-header"
+      class="content"
       [ngClass]="{
-        'sub-header collapsible': !isExpandedOne,
+        collapsible: !isExpandedOne,
         collapsed: isExpandedOne
       }"
     >
@@ -68,7 +70,7 @@
     <div
       class="content"
       [ngClass]="{
-        'sub-header collapsible': !isExpandedTwo,
+        collapsible: !isExpandedTwo,
         collapsed: isExpandedTwo
       }"
     >
@@ -103,7 +105,7 @@
     <div
       class="content"
       [ngClass]="{
-        'sub-header collapsible': !isExpandedThree,
+        collapsible: !isExpandedThree,
         collapsed: isExpandedThree
       }"
     >

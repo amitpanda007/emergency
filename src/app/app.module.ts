@@ -24,6 +24,7 @@ import { ContactService } from './services/contact.service';
 import { LocationService } from './services/location.service';
 import { LocationSearchDialogComponent } from './contacts/location-search/location-search-dialog.component';
 import { enableIndexedDbPersistence } from '@firebase/firestore';
+import { ContactPopUpDialogComponent } from './contacts/contact-popup/contact-popup-dialog.component';
 
 @NgModule({
   declarations: [AppComponent],
